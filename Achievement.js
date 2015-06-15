@@ -69,7 +69,7 @@ function unlockAchievement(type) {
 }
 
 function drawGui(image) {
-ctx.runOnUiThread(new java.lang.Runnable(){
+ctx.runOnUiThread(new java.lang.Runnable({
     run: function() {
     	try {
             removeGUI();
@@ -85,7 +85,7 @@ ctx.runOnUiThread(new java.lang.Runnable(){
     	print("error:" + e)	
     	}
         }
-        })
+        }))
         tick=100;
 }
 
@@ -104,7 +104,7 @@ function leaveGame() {
 }
 
 function removeGUI() {
-ctx.runOnUiThread(new java.lang.Runnable(){
+ctx.runOnUiThread(new java.lang.Runnable({
     run: function() {
     	try {
                 if(GUI!==null) {
@@ -115,5 +115,5 @@ ctx.runOnUiThread(new java.lang.Runnable(){
     		print(e)
     	}
         }
-        })
+        }))
 }
