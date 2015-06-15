@@ -23,62 +23,18 @@ var benchmarking = false;
 var GUI;
 var tick=0;
 
-var inv0=[],inv=[],items=[];
-function modTick(){
-inv0=inv;
-inv=[];
-for(var i=9;i<=44;i++){
-inv.push([Player.getInventorySlot(i),Player.getInventorySlotCount(i)]);
-checkTick();
-}
-for(var g=0;g<=items.length-1;g++){
-if(Entity.getEntityTypeId(items[g])!=64){
-checkInventory();
-items.splice(g,1);
-break;
-}
-}
-}
-function entityAddedHook(e){
-if(Entity.getEntityTypeId(e)==64){
-items.push(e);
-}
-}
-function newLevel(){
-items=[];
-for(var i=1;i<=10000;i++){
-if(Entity.getEntityTypeId(i)==64){
-items.push(i)
-}
-}
-}
-function checkInventory(){
-var diff=false,item=[];
-for(var j=0;j<=inv.length-1;j++){
-if(inv[j][0]!=inv0[j][0]||inv[j][1]!=inv0[j][1]){
-diff=true;
-if(inv[j][1]!=inv0[j][1]){
-item.push([inv[j][0],inv[j][1]-inv0[j][1]]);
-}
-else{
-item.push([inv[j][0],inv[j][1]]);
-}
-}
-}
-if(diff){
-for(var k=0;k<=item.length-1;k++){
-pickItemHook(Player.getX(),Player.getY()-1,Player.getZ(),item[k][0],item[k][1]);
-}
-}
-}
 
-function pickItemHook(x,y,z,id,count) {
-	if(id==17) {
-		if(!wood) {
-		unlockAchievement("wood")
-		wood=true;
-		}
-	}
+function modTick(){
+    checkTick();
+    if(!wood) {
+        for(var i=0;i<250;i++) {
+            if(Player.getInventorySlot(i)==17) {
+                wood=true;
+                unlockAchievement(wood);
+            }
+        }
+            
+    }
 }
 
 function unlockAchievement(type) {
