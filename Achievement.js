@@ -82,7 +82,7 @@ function drawGui(image) {
                 GUI = new android.widget.PopupWindow();
 			var layout = new android.widget.RelativeLayout(ctx);
 			var imgview = new android.widget.ImageView(ctx);
-			imgview.BackgroundDrawable(image);
+			imgview.setBackgroundDrawable(image);
 			layout.addView(imgview);
 			GUI.setContentView(layout);
 			GUI.setWidth(555);
@@ -123,5 +123,5 @@ function removeGUI() {
                 print(e);
             }
         }
-        }
+        })
 }
