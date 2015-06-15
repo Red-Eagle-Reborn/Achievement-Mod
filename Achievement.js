@@ -22,40 +22,92 @@ var wood = false;
 var benchmarking = false;
 var GUI;
 var tick=0;
+
+var inv0=[],inv=[],items=[];
+
+function entityAddedHook(e){
+if(Entity.getEntityTypeId(e)==64){
+items.push(e);
+}
+}
+function newLevel(){
+items=[];
+for(var i=1;i<=10000;i++){
+if(Entity.getEntityTypeId(i)==64){
+items.push(i)
+}
+}
+}
+function checkInventory(){
+var diff=false,item=[];
+for(var j=0;j<=inv.length-1;j++){
+if(inv[j][0]!=inv0[j][0]||inv[j][1]!=inv0[j][1]){
+diff=true;
+if(inv[j][1]!=inv0[j][1]){
+item.push([inv[j][0],inv[j][1]-inv0[j][1]]);
+}
+else{
+item.push([inv[j][0],inv[j][1]]);
+}
+}
+}
+if(diff){
+for(var k=0;k<=item.length-1;k++){
+pickItemHook(Player.getX(),Player.getY()-1,Player.getZ(),item[k][0],item[k][1]);
+}
+}
+}
+
+
+function removeGUI() {
+ctx.runOnUiThread(new java.lang.Runnable({
+    run: function() {
+    	try {
+ removeGUI();
+			GUI = new android.widget.PopupWindow();
+			var layout = new android.widget.LinearLayout(ctx);
+			layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+			GUI.setContentView(layout);
+			GUI.setBackgroundDrawable(image);
+			GUI.setWidth(555);
+			GUI.setHeight(109);
+			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
+    	} catch(e) {
+    		print(e)
+    	}
+        }
+        }))
+}
+
 function modTick() {
-    checkAchievement();
     if(tick>0) {
         tick--;
     } else if(tick<=0) {
         removeGUI();
 }
+inv0=inv;
+inv=[];
+for(var i=9;i<=44;i++){
+inv.push([Player.getInventorySlot(i),Player.getInventorySlotCount(i)]);
+}
+for(var g=0;g<=items.length-1;g++){
+if(Entity.getEntityTypeId(items[g])!=64){
+checkInventory();
+items.splice(g,1);
+break;
+}
+}
 }
 
-function checkAchievement() {
-    if(!wood) {
-        var woodCheck = checkInv(17);
-        if(woodCheck==true) {
-            wood=true;
-            clientMessage("unlock")
+
+
+
+
+function pickItemHook(x,y,z,id,count){
+    if(id==17) {
+        if(!wood) {
             unlockAchievement("wood");
-        }
-    }
-/*
-    if(wood&&!benchmarking) {
-        var benchCheck = checkInv(58);
-        if(benchCheck) {
-            benchmarking=true;
-            unlockAchievement("bench")
-        }
-    }
-*/
-}
-
-
-function checkInv(id) {
-    for(var i=0;i<250;i++) {
-        if(Player.getInventorySlot(i)==id) {
-            return true;
+            wood=true;
         }
     }
 }
@@ -69,26 +121,6 @@ function unlockAchievement(type) {
     //drawGui(imageToDraw);
 }
 
-function drawGui(image) {
-ctx.runOnUiThread(new java.lang.Runnable({
-    run: function() {
-    	try {
-            removeGUI();
-			GUI = new android.widget.PopupWindow();
-			var layout = new android.widget.LinearLayout(ctx);
-			layout.setOrientation(android.widget.LinearLayout.VERTICAL);
-			GUI.setContentView(layout);
-			GUI.setBackgroundDrawable(image);
-			GUI.setWidth(555);
-			GUI.setHeight(109);
-			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
-    	} catch(e) {
-    	print("error:" + e)	
-    	}
-        }
-        }))
-        tick=100;
-}
 
 function Base64Decode(byteArray, Path) {
     var File = new java.io.File(Path);
@@ -108,7 +140,7 @@ function removeGUI() {
 ctx.runOnUiThread(new java.lang.Runnable({
     run: function() {
     	try {
-                if(GUI!=null) {
+                if(GUI!==null) {
                     GUI.dismiss();
                     GUI=null;
                 }
