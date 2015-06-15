@@ -78,6 +78,7 @@ function pickItemHook(x,y,z,id,count) {
 	if(id==17) {
 		if(!=wood) {
 		unlockAchievement("wood")
+		wood=true;
 		}
 	}
 }
