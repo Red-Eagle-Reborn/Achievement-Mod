@@ -71,19 +71,23 @@ function drawGui(image) {
     ctx.runOnUiThread(new java.lang.Runnable() {
         run:function() {
             try {
-                if(GUI!==null) {
+              try {
+                if(GUI!=null) {
                     GUI.dismiss();
                     GUI=null;
                 }
-                var den = ctx.getResources().getDisplayMetrics().density;
+              } catch(e) {
+                print("Error :"+e)
+              }
                 GUI = new android.widget.PopupWindow();
-                var layout = new android.widget.LinearLayout(ctx);
-                GUI.setOrientation(android.widget.LinearLayout.VERTICAL);
-                GUI.setContentView(layout);
-                GUI.setWidth(700);
-                GUI.setHeight(10);
-                GUI.setBackgroundDrawable(image);
-                GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.CENTER | android.view.Gravity.TOP, 0, 0);
+			var layout = new android.widget.RelativeLayout(ctx);
+			var imgview = new android.widget.ImageView(ctx);
+			imgview.BackgroundDrawable(image);
+			layout.addView(imgview);
+			GUI.setContentView(layout);
+			GUI.setWidth(555);
+			GUI.setHeight(109);
+			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP, 0, 0);
                 tick=100;
 
             } catch (err) {
@@ -101,6 +105,10 @@ function Base64Decode(byteArray, Path) {
         Stream.write(byteArray);
         Stream.close();
     }
+}
+
+function leaveGame() {
+  removeGUI();
 }
 
 function removeGUI() {
