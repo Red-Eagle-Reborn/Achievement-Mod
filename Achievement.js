@@ -139,14 +139,10 @@ function leaveGame() {
 function removeGUI() {
 ctx.runOnUiThread(new java.lang.Runnable({
     run: function() {
-    	try {
                 if(GUI!==null) {
                     GUI.dismiss();
                     GUI=null;
                 }
-    	} catch(e) {
-    		print(e)
-    	}
         }
         }))
 }
