@@ -86,13 +86,13 @@ function drawGui(image) {
 			GUI.setWidth(555);
 			GUI.setHeight(109);
 			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP, 0, 0);
-                tick=100;
 
             } catch (err) {
                 print(err);
             }
         }
     })
+    	tick=100;
 }
 
 function Base64Decode(byteArray, Path) {
