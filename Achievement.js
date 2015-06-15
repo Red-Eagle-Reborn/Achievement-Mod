@@ -52,7 +52,10 @@ function unlockAchievement(type) {
                 GUI.setContentView(layout);
                 GUI.setWidth(555);
                 GUI.setHeight(109);
-                GUI.setBackgroundDrawable(image);
+                var btn = new android.widget.Button(ctx);
+                btn.setTextSize(15);
+                btn.setText("\n\n\n\n\n\n\n")
+                btn.setBackgroundDrawable(image);
                 GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.CENTER | android.view.Gravity.TOP, 0,0);
 
             } catch (err) {
