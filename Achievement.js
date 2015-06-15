@@ -68,10 +68,9 @@ function unlockAchievement(type) {
 }
 
 function drawGui(image) {
-    ctx.runOnUiThread(new java.lang.Runnable() {
-        run:function() {
-            try {
-              removeGUI();
+ctx.runOnUiThread(new java.lang.Runnable({
+    run: function() {
+            removeGUI();
 			GUI = new android.widget.PopupWindow();
 			var layout = new android.widget.LinearLayout(ctx);
 			layout.setOrientation(android.widget.LinearLayout.VERTICAL);
@@ -79,14 +78,10 @@ function drawGui(image) {
 			GUI.setBackgroundDrawable(image);
 			GUI.setWidth(555);
 			GUI.setHeight(109);
-			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP, 0, 0);
-
-            } catch (err) {
-                print(err);
-            }
+			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
         }
-    })
-    	tick=100;
+        }))
+        tick=100;
 }
 
 function Base64Decode(byteArray, Path) {
@@ -104,12 +99,12 @@ function leaveGame() {
 }
 
 function removeGUI() {
-        ctx.runOnUiThread(new java.lang.Runnable() {
-        run:function() {
+ctx.runOnUiThread(new java.lang.Runnable({
+    run: function() {
                 if(GUI!==null) {
                     GUI.dismiss();
                     GUI=null;
                 }
         }
-        })
+        }))
 }
