@@ -51,15 +51,14 @@ function achievementGUI(image) {
         	removeGUI();
             try {
                 GUI = new android.widget.PopupWindow();
-                var layout = new android.widget.LinearLayout(ctx);
-                layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+                var layout = new android.widget.RelativeLayout(ctx);
                 GUI.setContentView(layout);
                 GUI.setWidth(555);
                 GUI.setHeight(109);
-                var btn = new android.widget.Button(ctx);
-                btn.setTextSize(15);
-                btn.setText("\n\n\n\n\n\n\n")
-                btn.setBackgroundDrawable(image);
+                var btn = new android.widget.ImageView(ctx);
+                
+                GUI.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+                btn.setImageBitmap(image);
                 layout.addView(btn)
                 btn.setOnClickListener(new android.view.View.OnClickListener({ 
                 onClick: function(viewarg){
