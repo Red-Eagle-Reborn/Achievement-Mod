@@ -25,6 +25,22 @@ var tick=0;
 
 var inv0=[],inv=[],items=[];
 
+var inv0=[],inv=[],items=[];
+function modTick(){
+inv0=inv;
+inv=[];
+for(var i=9;i<=44;i++){
+inv.push([Player.getInventorySlot(i),Player.getInventorySlotCount(i)]);
+checkTick();
+}
+for(var g=0;g<=items.length-1;g++){
+if(Entity.getEntityTypeId(items[g])!=64){
+checkInventory();
+items.splice(g,1);
+break;
+}
+}
+}
 function entityAddedHook(e){
 if(Entity.getEntityTypeId(e)==64){
 items.push(e);
@@ -58,91 +74,61 @@ pickItemHook(Player.getX(),Player.getY()-1,Player.getZ(),item[k][0],item[k][1]);
 }
 }
 
-
-function removeGUI() {
-ctx.runOnUiThread(new java.lang.Runnable({
-    run: function() {
-    	try {
- removeGUI();
-			GUI = new android.widget.PopupWindow();
-			var layout = new android.widget.LinearLayout(ctx);
-			layout.setOrientation(android.widget.LinearLayout.VERTICAL);
-			GUI.setContentView(layout);
-			GUI.setBackgroundDrawable(image);
-			GUI.setWidth(555);
-			GUI.setHeight(109);
-			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
-    	} catch(e) {
-    		print(e)
-    	}
-        }
-        }))
-}
-
-function modTick() {
-    if(tick>0) {
-        tick--;
-    } else if(tick<=0) {
-        removeGUI();
-}
-inv0=inv;
-inv=[];
-for(var i=9;i<=44;i++){
-inv.push([Player.getInventorySlot(i),Player.getInventorySlotCount(i)]);
-}
-for(var g=0;g<=items.length-1;g++){
-if(Entity.getEntityTypeId(items[g])!=64){
-checkInventory();
-items.splice(g,1);
-break;
-}
-}
-}
-
-
-
-
-
-function pickItemHook(x,y,z,id,count){
-    if(id==17) {
-        if(!wood) {
-            unlockAchievement("wood");
-            wood=true;
-        }
-    }
+function pickItemHook(x,y,z,id,count) {
+	if(id==17) {
+		if(!=wood) {
+		unlockAchievement("wood")
+		}
+	}
 }
 
 function unlockAchievement(type) {
-    var imageToDraw;
-    if(type=="wood") {
-        imageToDraw = WoodGUI;
-        clientMessage("jus")
-    }
-    //drawGui(imageToDraw);
+	var image;
+	if(type=="wood") {
+		image=WoodGUI;
+	}
+	    ctx.runOnUiThread(new java.lang.Runnable() {
+        run: function() {
+        	removeGUI();
+            try {
+                GUI = new android.widget.PopupWindow();
+                var layout = new android.widget.LinearLayout(ctx);
+                layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+                GUI.setContentView(layout);
+                GUI.setWidth(555);
+                GUI.setHeight(109);
+                GUI.setBackgroundDrawable(image);
+                GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.CENTER | android.view.Gravity.TOP, 0,0);
+
+            } catch (err) {
+                print(err);
+            }
+        }
+    })
+    tick=100;
 }
 
 
-function Base64Decode(byteArray, Path) {
-    var File = new java.io.File(Path);
-    if (!File.exists()) {
-        File.createNewFile();
-        var Stream = new java.io.FileOutputStream(File);
-        Stream.write(byteArray);
-        Stream.close();
-    }
+function removeGUI() {
+	ctx.runOnUiThread(new java.lang.Runnable() {
+        run: function() {
+        	if(GUI!=null) {
+        		GUI.dismiss();
+        		GUI = null;
+        	}
+        }
+	}
 }
 
 function leaveGame() {
-  removeGUI();
+	removeGUI();
 }
 
-function removeGUI() {
-ctx.runOnUiThread(new java.lang.Runnable({
-    run: function() {
-                if(GUI!==null) {
-                    GUI.dismiss();
-                    GUI=null;
-                }
-        }
-        }))
+function checkTick() {
+	if(tick>0) {
+		tick--;
+	}
+	if(tick<=0) {
+		removeGUI();
+	}
 }
