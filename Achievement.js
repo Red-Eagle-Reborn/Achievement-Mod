@@ -71,20 +71,18 @@ function drawGui(image) {
     ctx.runOnUiThread(new java.lang.Runnable() {
         run:function() {
             try {
-              try {
-                if(GUI!=null) {
-                    GUI.dismiss();
-                    GUI=null;
-                }
-              } catch(e) {
-                print("Error :"+e)
-              }
-                GUI = new android.widget.PopupWindow();
-			var layout = new android.widget.RelativeLayout(ctx);
-			var imgview = new android.widget.ImageView(ctx);
-			imgview.setBackgroundDrawable(image);
-			layout.addView(imgview);
-			GUI.setContentView(layout);
+              removeGUI();
+		GUI = new android.widget.PopupWindow();
+
+		var btn = new android.widget.Button(ctx);
+		btn.setTextSize(15);
+
+		var layout = new android.widget.LinearLayout(ctx);
+		layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+		GUI.setContentView(layout);
+		GUI.setBackgrounDrawable(image);
+		btn.setText("\n\n\n\n\n\n")
+		layout.addView(btn);
 			GUI.setWidth(555);
 			GUI.setHeight(109);
 			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP, 0, 0);
