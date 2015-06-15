@@ -55,11 +55,10 @@ function achievementGUI(image) {
                 GUI.setContentView(layout);
                 GUI.setWidth(555);
                 GUI.setHeight(109);
-                var btn = new android.widget.ImageView(ctx);
-                
                 GUI.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+                var btn = new android.widget.ImageView(ctx);
                 btn.setImageBitmap(image);
-                layout.addView(btn)
+                layout.addView(btn);
                 btn.setOnClickListener(new android.view.View.OnClickListener({ 
                 onClick: function(viewarg){
                 	removeGUI();
