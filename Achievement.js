@@ -72,17 +72,11 @@ function drawGui(image) {
         run:function() {
             try {
               removeGUI();
-		GUI = new android.widget.PopupWindow();
-
-		var btn = new android.widget.Button(ctx);
-		btn.setTextSize(15);
-
-		var layout = new android.widget.LinearLayout(ctx);
-		layout.setOrientation(android.widget.LinearLayout.VERTICAL);
-		GUI.setContentView(layout);
-		GUI.setBackgrounDrawable(image);
-		btn.setText("\n\n\n\n\n\n")
-		layout.addView(btn);
+			GUI = new android.widget.PopupWindow();
+			var layout = new android.widget.LinearLayout(ctx);
+			layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+			GUI.setContentView(layout);
+			GUI.setBackgroundDrawable(image);
 			GUI.setWidth(555);
 			GUI.setHeight(109);
 			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP, 0, 0);
