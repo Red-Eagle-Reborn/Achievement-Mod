@@ -34,8 +34,9 @@ function modTick() {
 function checkAchievement() {
     if(!wood) {
         var woodCheck = checkInv(17);
-        if(woodCheck===true) {
+        if(woodCheck==true) {
             wood=true;
+            clientMessage("unlock")
             unlockAchievement("wood");
         }
     }
@@ -107,7 +108,7 @@ function removeGUI() {
 ctx.runOnUiThread(new java.lang.Runnable({
     run: function() {
     	try {
-                if(GUI!==null) {
+                if(GUI!=null) {
                     GUI.dismiss();
                     GUI=null;
                 }
