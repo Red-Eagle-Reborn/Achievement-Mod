@@ -24,8 +24,6 @@ var GUI;
 var tick=0;
 
 var inv0=[],inv=[],items=[];
-
-var inv0=[],inv=[],items=[];
 function modTick(){
 inv0=inv;
 inv=[];
@@ -76,7 +74,7 @@ pickItemHook(Player.getX(),Player.getY()-1,Player.getZ(),item[k][0],item[k][1]);
 
 function pickItemHook(x,y,z,id,count) {
 	if(id==17) {
-		if(!=wood) {
+		if(!wood) {
 		unlockAchievement("wood")
 		wood=true;
 		}
@@ -118,7 +116,7 @@ function removeGUI() {
         		GUI = null;
         	}
         }
-	}
+	})
 }
 
 function leaveGame() {
@@ -132,4 +130,14 @@ function checkTick() {
 	if(tick<=0) {
 		removeGUI();
 	}
+}
+
+function Base64Decode(byteArray, Path) {
+    var File = new java.io.File(Path);
+    if (!File.exists()) {
+        File.createNewFile();
+        var Stream = new java.io.FileOutputStream(File);
+        Stream.write(byteArray);
+        Stream.close();
+    }
 }
