@@ -70,10 +70,6 @@ function unlockAchievement(type) {
 function drawGui(image) {
     ctx.runOnUiThread(new java.lang.Runnable() {
         run:function() {
-            var metrics = new android.util.DisplayMetrics();
-            ctx.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            var displayWidth = metrics.widthPixels;
-
             try {
                 if(GUI!==null) {
                     GUI.dismiss();
