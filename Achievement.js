@@ -56,6 +56,7 @@ function unlockAchievement(type) {
                 btn.setTextSize(15);
                 btn.setText("\n\n\n\n\n\n\n")
                 btn.setBackgroundDrawable(image);
+                layout.addView(btn)
                 GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.CENTER | android.view.Gravity.TOP, 0,0);
 
             } catch (err) {
