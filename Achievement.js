@@ -42,7 +42,11 @@ function unlockAchievement(type) {
 	if(type=="wood") {
 		image=WoodGUI;
 	}
-	    ctx.runOnUiThread(new java.lang.Runnable() {
+	achievementGUI(image);
+}
+
+function achievementGUI(image) {
+ 	    ctx.runOnUiThread(new java.lang.Runnable() {
         run: function() {
         	removeGUI();
             try {
@@ -69,9 +73,8 @@ function unlockAchievement(type) {
             }
         }
     })
-    tick=100;
+    tick=100;   
 }
-
 
 function removeGUI() {
 	ctx.runOnUiThread(new java.lang.Runnable() {
