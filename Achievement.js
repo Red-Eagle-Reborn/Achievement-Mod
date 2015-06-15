@@ -63,13 +63,15 @@ function unlockAchievement(type) {
     var imageToDraw;
     if(type=="wood") {
         imageToDraw = WoodGUI;
+        clientMessage("jus")
     }
-    drawGui(imageToDraw);
+    //drawGui(imageToDraw);
 }
 
 function drawGui(image) {
 ctx.runOnUiThread(new java.lang.Runnable(){
     run: function() {
+    	try {
             removeGUI();
 			GUI = new android.widget.PopupWindow();
 			var layout = new android.widget.LinearLayout(ctx);
@@ -79,6 +81,9 @@ ctx.runOnUiThread(new java.lang.Runnable(){
 			GUI.setWidth(555);
 			GUI.setHeight(109);
 			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
+    	} catch(e) {
+    	print("error:" + e)	
+    	}
         }
         })
         tick=100;
@@ -101,10 +106,14 @@ function leaveGame() {
 function removeGUI() {
 ctx.runOnUiThread(new java.lang.Runnable(){
     run: function() {
+    	try {
                 if(GUI!==null) {
                     GUI.dismiss();
                     GUI=null;
                 }
+    	} catch(e) {
+    		print(e)
+    	}
         }
         })
 }
