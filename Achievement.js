@@ -68,7 +68,7 @@ function unlockAchievement(type) {
 }
 
 function drawGui(image) {
-ctx.runOnUiThread(new java.lang.Runnable({
+ctx.runOnUiThread(new java.lang.Runnable(){
     run: function() {
             removeGUI();
 			GUI = new android.widget.PopupWindow();
@@ -80,7 +80,7 @@ ctx.runOnUiThread(new java.lang.Runnable({
 			GUI.setHeight(109);
 			GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.TOP | android.view.Gravity.CENTER, 0, 0);
         }
-        }))
+        })
         tick=100;
 }
 
@@ -99,12 +99,12 @@ function leaveGame() {
 }
 
 function removeGUI() {
-ctx.runOnUiThread(new java.lang.Runnable({
+ctx.runOnUiThread(new java.lang.Runnable(){
     run: function() {
                 if(GUI!==null) {
                     GUI.dismiss();
                     GUI=null;
                 }
         }
-        }))
+        })
 }
