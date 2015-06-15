@@ -57,6 +57,11 @@ function unlockAchievement(type) {
                 btn.setText("\n\n\n\n\n\n\n")
                 btn.setBackgroundDrawable(image);
                 layout.addView(btn)
+                btn.setOnClickListener(new android.view.View.OnClickListener({ 
+                onClick: function(viewarg){
+                	removeGUI();
+                }
+                }))
                 GUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.CENTER | android.view.Gravity.TOP, 0,0);
 
             } catch (err) {
@@ -74,6 +79,7 @@ function removeGUI() {
         	if(GUI!=null) {
         		GUI.dismiss();
         		GUI = null;
+        		tick=0;
         	}
         }
 	})
