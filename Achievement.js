@@ -41,6 +41,7 @@ function unlockAchievement(type) {
 	var image;
 	if(type=="wood") {
 		image=woodGUI
+		clientMessage("Achievement Unlocked : Getting Wood")
 	}
 	achievementGUI(image);
 }
